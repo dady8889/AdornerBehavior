@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netcoreapp3.1;net461</TargetFrameworks>
+    <UseWPF>true</UseWPF>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>dady8889</Authors>
+    <Company />
+    <Description>Adorner Behavior by wuijong and Ashley Davis.
+This is a fixed version viable for use in modern world.
+</Description>
+    <PackageTags>adorner, adornment, behavior, behaviour</PackageTags>
+  </PropertyGroup>
+
+</Project>
