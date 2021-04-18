@@ -10,9 +10,27 @@ namespace AdornerBehaviorTestApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private int _currentDynamicAdorner;
+
+        public int CurrentDynamicAdorner
+        {
+            get
+            {
+                return this._currentDynamicAdorner;
+            }
+            set
+            {
+                if (value == 5)
+                    value = 0;
+
+                this._currentDynamicAdorner = value;
+            }
+        }
+
         public MainWindow()
         {
             this.InitializeComponent();
+            this.CurrentDynamicAdorner = 1;
         }
 
         private void ThumbDragAround_DragDelta(object sender, DragDeltaEventArgs args)
@@ -146,6 +164,27 @@ namespace AdornerBehaviorTestApp
                     adornedElement.Height = height + args.VerticalChange;
                 }
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            var adornedElement = sender as FrameworkElement;
+            if (adornedElement == null)
+                return;
+
+            var adorners = AdornerBehavior.AdornerBehavior.GetAdorners(adornedElement);
+
+            if (this.CurrentDynamicAdorner == 0)
+            {
+                adorners.Clear();
+                this.CurrentDynamicAdorner++;
+                return;
+            }
+
+            var elementToFind = "DynamicAdorner" + this.CurrentDynamicAdorner;
+            var newAdorner = this.FindResource(elementToFind) as FrameworkElement;
+            adorners.Add(newAdorner);
+            this.CurrentDynamicAdorner++;
         }
     }
 }
