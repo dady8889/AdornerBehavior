@@ -9,49 +9,49 @@ namespace AdornerBehavior
     /// A behavior that allows an adorner for multiple child to
     /// be defined in XAML.
     /// </summary>
-    public static class MultiChildAdornerBehavior
+    public static class AdornerBehavior
     {
         #region Dependency Properties
 
         /// <summary>
         /// Apply this on Adorned FrameworkElement
         /// </summary>
-        public static readonly DependencyProperty IsAdornerVisibleProperty =
-            DependencyProperty.RegisterAttached("IsAdornerVisible", typeof(bool), typeof(MultiChildAdornerBehavior),
-                new FrameworkPropertyMetadata(OnIsAdornerVisiblePropertyChanged));
+        public static readonly DependencyProperty IsEnabledProperty =
+            DependencyProperty.RegisterAttached("IsEnabled", typeof(bool), typeof(AdornerBehavior),
+                new FrameworkPropertyMetadata(OnIsEnabledPropertyChanged));
 
         /// <summary>
         /// Shows or hides the adorner.
         /// Set to 'true' to show the adorner or 'false' to hide the adorner.
         /// </summary>
-        public static bool GetIsAdornerVisible(DependencyObject d)
+        public static bool GetIsEnabled(DependencyObject d)
         {
-            return (bool)d.GetValue(IsAdornerVisibleProperty);
+            return (bool)d.GetValue(IsEnabledProperty);
         }
 
-        public static void SetIsAdornerVisible(DependencyObject d, bool value)
+        public static void SetIsEnabled(DependencyObject d, bool value)
         {
-            d.SetValue(IsAdornerVisibleProperty, value);
+            d.SetValue(IsEnabledProperty, value);
         }
 
         public static readonly DependencyProperty AdornerProperty =
-            DependencyProperty.RegisterAttached("Adorner", typeof(FrameworkElementMultiChildAdorner), typeof(MultiChildAdornerBehavior));
+            DependencyProperty.RegisterAttached("Adorner", typeof(FrameworkElementAdorner), typeof(AdornerBehavior));
 
-
-        public static readonly DependencyProperty AdornerChildrenProperty =
-            DependencyProperty.RegisterAttached("AdornerChildrenInternal", typeof(AdornerCollection), typeof(MultiChildAdornerBehavior),
-                new PropertyMetadata(OnAdornerChildrenPropertyChanged));
 
         /// <summary>
-        /// Used in XAML to define the UI content of the adorner.
+        /// Used in XAML to define the collection of adorners.
         /// </summary>
-        public static AdornerCollection GetAdornerChildren(DependencyObject d)
+        public static readonly DependencyProperty AdornersProperty =
+            DependencyProperty.RegisterAttached("AdornersInternal", typeof(AdornerCollection), typeof(AdornerBehavior),
+                new PropertyMetadata(OnAdornersPropertyChanged));
+
+        public static AdornerCollection GetAdorners(DependencyObject d)
         {
-            var collection = (AdornerCollection)d.GetValue(AdornerChildrenProperty);
+            var collection = (AdornerCollection)d.GetValue(AdornersProperty);
             if (collection == null)
             {
                 collection = new AdornerCollection();
-                d.SetValue(AdornerChildrenProperty, collection);
+                d.SetValue(AdornersProperty, collection);
 
                 var fe = (FrameworkElement)d;
                 fe.DataContextChanged += OnDataContextChanged;
@@ -62,13 +62,13 @@ namespace AdornerBehavior
             return collection;
         }
 
-        public static void SetAdornerChildren(DependencyObject d, AdornerCollection value)
+        public static void SetAdorners(DependencyObject d, AdornerCollection value)
         {
-            d.SetValue(AdornerChildrenProperty, value);
+            d.SetValue(AdornersProperty, value);
         }
 
         public static readonly DependencyProperty HorizontalPlacementProperty =
-            DependencyProperty.RegisterAttached("HorizontalPlacement", typeof(AdornerPlacement), typeof(MultiChildAdornerBehavior),
+            DependencyProperty.RegisterAttached("HorizontalPlacement", typeof(AdornerPlacement), typeof(AdornerBehavior),
                 new FrameworkPropertyMetadata(AdornerPlacement.Inside));
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace AdornerBehavior
         }
 
         public static readonly DependencyProperty VerticalPlacementProperty =
-            DependencyProperty.RegisterAttached("VerticalPlacement", typeof(AdornerPlacement), typeof(MultiChildAdornerBehavior),
+            DependencyProperty.RegisterAttached("VerticalPlacement", typeof(AdornerPlacement), typeof(AdornerBehavior),
                 new FrameworkPropertyMetadata(AdornerPlacement.Inside));
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace AdornerBehavior
         }
 
         public static readonly DependencyProperty OffsetXProperty =
-            DependencyProperty.RegisterAttached("OffsetX", typeof(double), typeof(MultiChildAdornerBehavior), new PropertyMetadata(0.0));
+            DependencyProperty.RegisterAttached("OffsetX", typeof(double), typeof(AdornerBehavior), new PropertyMetadata(0.0));
 
         /// <summary>
         /// X offset of the adorner.
@@ -115,7 +115,7 @@ namespace AdornerBehavior
         }
 
         public static readonly DependencyProperty OffsetYProperty =
-            DependencyProperty.RegisterAttached("OffsetY", typeof(double), typeof(MultiChildAdornerBehavior), new PropertyMetadata(0.0));
+            DependencyProperty.RegisterAttached("OffsetY", typeof(double), typeof(AdornerBehavior), new PropertyMetadata(0.0));
 
         /// <summary>
         /// Y offset of the adorner.
@@ -135,14 +135,14 @@ namespace AdornerBehavior
         #region Callbacks
 
         /// <summary>
-        /// Event raised when the value of IsAdornerVisible has changed.
+        /// Event raised when the value of IsEnabled has changed.
         /// </summary>
-        private static void OnIsAdornerVisiblePropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnIsEnabledPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             UpdateAdorner((FrameworkElement)d);
         }
 
-        private static void OnAdornerChildrenPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private static void OnAdornersPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             UpdateAdorner((FrameworkElement)d);
         }
@@ -157,9 +157,9 @@ namespace AdornerBehavior
             if (fe == null)
                 return;
 
-            var adornerChildren = GetAdornerChildren(fe);
+            var adorners = GetAdorners(fe);
 
-            foreach (var adornerChild in adornerChildren)
+            foreach (var adornerChild in adorners)
                 adornerChild.DataContext = fe.DataContext;
         }
 
@@ -182,7 +182,7 @@ namespace AdornerBehavior
             if (fe == null)
                 return;
 
-            if (GetIsAdornerVisible(fe))
+            if (GetIsEnabled(fe))
                 ShowAdorner(fe);
             else
                 HideAdorner(fe);
@@ -193,8 +193,8 @@ namespace AdornerBehavior
             if (fe == null)
                 return;
 
-            var adornerChildren = GetAdornerChildren(fe);
-            if (adornerChildren == null)
+            var adorners = GetAdorners(fe);
+            if (adorners == null)
                 return;
 
             var al = AdornerLayer.GetAdornerLayer(fe);
@@ -202,10 +202,10 @@ namespace AdornerBehavior
                 return;
 
             // create new adorner if it doesnt exist
-            var adorner = fe.GetValue(AdornerProperty) as FrameworkElementMultiChildAdorner;
+            var adorner = fe.GetValue(AdornerProperty) as FrameworkElementAdorner;
             if (adorner == null)
             {
-                adorner = new FrameworkElementMultiChildAdorner(adornerChildren, fe);
+                adorner = new FrameworkElementAdorner(adorners, fe);
                 fe.SetValue(AdornerProperty, adorner);
                 BindAdorner(fe, adorner);
             }
@@ -222,7 +222,7 @@ namespace AdornerBehavior
             if (fe == null)
                 return;
 
-            var adorner = fe.GetValue(AdornerProperty) as FrameworkElementMultiChildAdorner;
+            var adorner = fe.GetValue(AdornerProperty) as FrameworkElementAdorner;
             if (adorner == null)
                 return;
 
@@ -234,7 +234,7 @@ namespace AdornerBehavior
             fe.SetValue(AdornerProperty, null);
         }
 
-        private static void BindAdorner(FrameworkElement fe, FrameworkElementMultiChildAdorner adorner)
+        private static void BindAdorner(FrameworkElement fe, FrameworkElementAdorner adorner)
         {
             if (adorner == null)
                 throw new ArgumentNullException(nameof(adorner));
@@ -242,10 +242,10 @@ namespace AdornerBehavior
             if (fe == null)
                 throw new ArgumentNullException(nameof(fe));
 
-            var binding = new Binding() { Path = new PropertyPath(AdornerChildrenProperty) };
+            var binding = new Binding() { Path = new PropertyPath(AdornersProperty) };
             binding.Mode = BindingMode.OneWay;
             binding.Source = fe;
-            adorner.SetBinding(FrameworkElementMultiChildAdorner.AdornerChildrenProperty, binding);
+            adorner.SetBinding(FrameworkElementAdorner.AdornersProperty, binding);
         }
 
         #endregion

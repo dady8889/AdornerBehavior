@@ -10,31 +10,31 @@ using System.Windows.Media;
 //
 namespace AdornerBehavior
 {
-    //
-    // This class is an adorner that allows a FrameworkElement derived class to adorn another FrameworkElement.
-    //
-    public class FrameworkElementMultiChildAdorner : Adorner
+    /// <summary>
+    /// This class is an adorner that allows a FrameworkElement derived class to adorn another FrameworkElement.
+    /// </summary>
+    public class FrameworkElementAdorner : Adorner
     {
         /// <summary>
         /// The framework element that is the adorner.
         /// </summary>
-        public static readonly DependencyProperty AdornerChildrenProperty
-            = DependencyProperty.Register("AdornerChildren", typeof(AdornerCollection), typeof(FrameworkElementMultiChildAdorner));
+        public static readonly DependencyProperty AdornersProperty =
+            DependencyProperty.Register("Adorners", typeof(AdornerCollection), typeof(FrameworkElementAdorner));
 
-        public AdornerCollection AdornerChildren
+        public AdornerCollection Adorners
         {
             get
             {
-                return (AdornerCollection)this.GetValue(AdornerChildrenProperty);
+                return (AdornerCollection)this.GetValue(AdornersProperty);
             }
             set
             {
-                this.SetValue(AdornerChildrenProperty, value);
+                this.SetValue(AdornersProperty, value);
             }
         }
 
         public static readonly DependencyProperty AdornedElementProperty =
-            DependencyProperty.RegisterAttached("AdornedElement", typeof(FrameworkElement), typeof(FrameworkElementMultiChildAdorner));
+            DependencyProperty.RegisterAttached("AdornedElement", typeof(FrameworkElement), typeof(FrameworkElementAdorner));
 
         /// <summary>
         /// Position X of each AdornerChild.
@@ -50,8 +50,7 @@ namespace AdornerBehavior
         }
 
         public static readonly DependencyProperty PositionXProperty =
-            DependencyProperty.RegisterAttached("PositionX", typeof(double), typeof(FrameworkElementMultiChildAdorner),
-            new PropertyMetadata(double.NaN));
+            DependencyProperty.RegisterAttached("PositionX", typeof(double), typeof(FrameworkElementAdorner), new PropertyMetadata(double.NaN));
 
         /// <summary>
         /// Position X of each AdornerChild.
@@ -66,8 +65,7 @@ namespace AdornerBehavior
         }
 
         public static readonly DependencyProperty PositionYProperty =
-            DependencyProperty.RegisterAttached("PositionY", typeof(double), typeof(FrameworkElementMultiChildAdorner),
-            new PropertyMetadata(double.NaN));
+            DependencyProperty.RegisterAttached("PositionY", typeof(double), typeof(FrameworkElementAdorner), new PropertyMetadata(double.NaN));
 
         /// <summary>
         /// Position Y of each AdornerChild.
@@ -81,10 +79,10 @@ namespace AdornerBehavior
             d.SetValue(PositionYProperty, value);
         }
 
-        public FrameworkElementMultiChildAdorner(AdornerCollection adornerChildren, FrameworkElement adornedElement)
+        public FrameworkElementAdorner(AdornerCollection adorners, FrameworkElement adornedElement)
             : base(adornedElement)
         {
-            this.AdornerChildren = adornerChildren;
+            this.Adorners = adorners;
             //this.ConnectChildren(adornedElement);
 
             adornedElement.SizeChanged += this.AdornedElement_SizeChanged;
@@ -103,8 +101,8 @@ namespace AdornerBehavior
         /// </summary>
         private double DetermineX(FrameworkElement adornerChild)
         {
-            var horizontalPlacement = MultiChildAdornerBehavior.GetHorizontalPlacement(adornerChild);
-            var offsetX = MultiChildAdornerBehavior.GetOffsetX(adornerChild);
+            var horizontalPlacement = AdornerBehavior.GetHorizontalPlacement(adornerChild);
+            var offsetX = AdornerBehavior.GetOffsetX(adornerChild);
             switch (adornerChild.HorizontalAlignment)
             {
                 case HorizontalAlignment.Left:
@@ -160,8 +158,8 @@ namespace AdornerBehavior
         /// </summary>
         private double DetermineY(FrameworkElement adornerChild)
         {
-            var verticalPlacement = MultiChildAdornerBehavior.GetVerticalPlacement(adornerChild);
-            var offsetY = MultiChildAdornerBehavior.GetOffsetY(adornerChild);
+            var verticalPlacement = AdornerBehavior.GetVerticalPlacement(adornerChild);
+            var offsetY = AdornerBehavior.GetOffsetY(adornerChild);
 
             switch (adornerChild.VerticalAlignment)
             {
@@ -280,7 +278,7 @@ namespace AdornerBehavior
 
         protected override Size ArrangeOverride(Size finalSize)
         {
-            foreach (var adornerChild in this.AdornerChildren)
+            foreach (var adornerChild in this.Adorners)
             {
                 var x = GetPositionX(adornerChild);
 
@@ -302,16 +300,16 @@ namespace AdornerBehavior
         {
             get
             {
-                return this.AdornerChildren.Count;
+                return this.Adorners.Count;
             }
         }
 
         protected override Visual GetVisualChild(int index)
         {
-            if (this.AdornerChildren == null)
+            if (this.Adorners == null)
                 return null;
 
-            return new List<FrameworkElement>(this.AdornerChildren)[index];
+            return new List<FrameworkElement>(this.Adorners)[index];
         }
 
         /// <summary>
@@ -319,7 +317,7 @@ namespace AdornerBehavior
         /// </summary>
         public void DisconnectChildren()
         {
-            foreach (var adornerChild in this.AdornerChildren)
+            foreach (var adornerChild in this.Adorners)
             {
                 this.RemoveLogicalChild(adornerChild);
                 this.RemoveVisualChild(adornerChild);
@@ -332,7 +330,7 @@ namespace AdornerBehavior
         /// </summary>
         public void ConnectChildren(FrameworkElement adornedElement)
         {
-            foreach (var adornerChild in this.AdornerChildren)
+            foreach (var adornerChild in this.Adorners)
             {
                 this.AddLogicalChild(adornerChild);
                 this.AddVisualChild(adornerChild);

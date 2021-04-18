@@ -19,7 +19,7 @@ namespace AdornerBehaviorTestApp
         {
             if (sender is FrameworkElement adornerChild)
             {
-                var adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
+                var adornedElement = FrameworkElementAdorner.GetAdornedElement(adornerChild);
 
                 var left = Canvas.GetLeft(adornedElement);
                 if (left.Equals(double.NaN))
@@ -42,7 +42,7 @@ namespace AdornerBehaviorTestApp
         {
             if (sender is FrameworkElement adornerChild)
             {
-                var adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
+                var adornedElement = FrameworkElementAdorner.GetAdornedElement(adornerChild);
 
                 var left = Canvas.GetLeft(adornedElement);
                 if (left.Equals(double.NaN))
@@ -76,7 +76,7 @@ namespace AdornerBehaviorTestApp
         {
             if (sender is FrameworkElement adornerChild)
             {
-                var adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
+                var adornedElement = FrameworkElementAdorner.GetAdornedElement(adornerChild);
 
                 var top = Canvas.GetTop(adornedElement);
                 if (top.Equals(double.NaN))
@@ -104,7 +104,7 @@ namespace AdornerBehaviorTestApp
         {
             if (sender is FrameworkElement adornerChild)
             {
-                var adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
+                var adornedElement = FrameworkElementAdorner.GetAdornedElement(adornerChild);
 
                 var left = Canvas.GetLeft(adornedElement);
                 if (left.Equals(double.NaN))
@@ -131,7 +131,7 @@ namespace AdornerBehaviorTestApp
         {
             if (sender is FrameworkElement adornerChild)
             {
-                var adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
+                var adornedElement = FrameworkElementAdorner.GetAdornedElement(adornerChild);
 
                 var width = adornedElement.ActualWidth;
                 var height = adornedElement.ActualHeight;

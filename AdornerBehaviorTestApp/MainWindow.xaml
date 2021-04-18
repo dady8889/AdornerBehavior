@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:AdornerBehaviorTestApp"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        Title="MainWindow"
+        Title="AdornerBehaviorTestApp"
         Width="500"
         Height="450"
         mc:Ignorable="d">
@@ -24,14 +24,14 @@
         </Style>
     </Window.Resources>
 
-    <StackPanel ab:MultiChildAdornerBehavior.IsAdornerVisible="True">
-        <ab:MultiChildAdornerBehavior.AdornerChildren>
+    <StackPanel ab:AdornerBehavior.IsEnabled="True">
+        <ab:AdornerBehavior.Adorners>
             <Ellipse Width="15"
                      Height="15"
                      HorizontalAlignment="Left"
                      VerticalAlignment="Top"
                      Stroke="Green" />
-        </ab:MultiChildAdornerBehavior.AdornerChildren>
+        </ab:AdornerBehavior.Adorners>
         <TextBlock Margin="0,10,0,0"
                    HorizontalAlignment="Center"
                    Text="Implicitly both Vertical and Horizontal placements are Inside.&#x0a;If no AdornerDecorator is found, the Window will be used as AdornerLayer." />
@@ -44,16 +44,16 @@
         <AdornerDecorator>
             <Rectangle Width="50"
                        Height="50"
-                       ab:MultiChildAdornerBehavior.HorizontalPlacement="Across"
-                       ab:MultiChildAdornerBehavior.IsAdornerVisible="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}"
+                       ab:AdornerBehavior.IsEnabled="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}"
                        Fill="Transparent"
                        Stroke="Blue">
-                <ab:MultiChildAdornerBehavior.AdornerChildren>
+                <ab:AdornerBehavior.Adorners>
                     <Ellipse Width="15"
                              Height="15"
                              HorizontalAlignment="Left"
+                             ab:AdornerBehavior.HorizontalPlacement="Across"
                              Stroke="Green" />
-                </ab:MultiChildAdornerBehavior.AdornerChildren>
+                </ab:AdornerBehavior.Adorners>
             </Rectangle>
         </AdornerDecorator>
 
@@ -66,31 +66,31 @@
         <AdornerDecorator>
             <Rectangle Width="50"
                        Height="50"
-                       ab:MultiChildAdornerBehavior.IsAdornerVisible="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}"
+                       ab:AdornerBehavior.IsEnabled="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}"
                        Fill="Transparent"
                        Stroke="Blue">
-                <ab:MultiChildAdornerBehavior.AdornerChildren>
+                <ab:AdornerBehavior.Adorners>
                     <Ellipse Width="15"
                              Height="15"
                              HorizontalAlignment="Left"
-                             ab:MultiChildAdornerBehavior.HorizontalPlacement="Inside"
+                             ab:AdornerBehavior.HorizontalPlacement="Inside"
                              Stroke="Green" />
                     <Ellipse Width="15"
                              Height="15"
                              HorizontalAlignment="Right"
-                             ab:MultiChildAdornerBehavior.HorizontalPlacement="Across"
+                             ab:AdornerBehavior.HorizontalPlacement="Across"
                              Stroke="Red" />
                     <Ellipse Width="15"
                              Height="15"
                              VerticalAlignment="Top"
-                             ab:MultiChildAdornerBehavior.VerticalPlacement="Across"
+                             ab:AdornerBehavior.VerticalPlacement="Across"
                              Stroke="Brown" />
                     <Ellipse Width="15"
                              Height="15"
                              VerticalAlignment="Bottom"
-                             ab:MultiChildAdornerBehavior.VerticalPlacement="Outside"
+                             ab:AdornerBehavior.VerticalPlacement="Outside"
                              Fill="Brown" />
-                </ab:MultiChildAdornerBehavior.AdornerChildren>
+                </ab:AdornerBehavior.Adorners>
             </Rectangle>
         </AdornerDecorator>
 
@@ -102,10 +102,10 @@
         <Canvas>
             <Label HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
-                   ab:MultiChildAdornerBehavior.IsAdornerVisible="True"
+                   ab:AdornerBehavior.IsEnabled="True"
                    Background="Gray"
                    Content="Hi, Label">
-                <ab:MultiChildAdornerBehavior.AdornerChildren>
+                <ab:AdornerBehavior.Adorners>
                     <Thumb x:Name="thumbDragAround"
                            Background="Transparent"
                            Cursor="SizeAll"
@@ -139,7 +139,7 @@
                            VerticalAlignment="Bottom"
                            Cursor="SizeNWSE"
                            DragDelta="ThumbBottomRight_DragDelta" />
-                </ab:MultiChildAdornerBehavior.AdornerChildren>
+                </ab:AdornerBehavior.Adorners>
             </Label>
         </Canvas>
     </StackPanel>
