@@ -1,19 +1,7 @@
-﻿using AdornerBehavior;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using AdornerBehavior;
 
 namespace AdornerBehaviorTestApp
 {
@@ -24,22 +12,22 @@ namespace AdornerBehaviorTestApp
     {
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
-        private void thumbDragAround_DragDelta(object sender, DragDeltaEventArgs args)
+        private void ThumbDragAround_DragDelta(object sender, DragDeltaEventArgs args)
         {
             if (sender is FrameworkElement adornerChild)
             {
-                FrameworkElement adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
+                var adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
 
-                double left = Canvas.GetLeft(adornedElement);
+                var left = Canvas.GetLeft(adornedElement);
                 if (left.Equals(double.NaN))
                 {
                     left = 0;
                 }
 
-                double top = Canvas.GetTop(adornedElement);
+                var top = Canvas.GetTop(adornedElement);
                 if (top.Equals(double.NaN))
                 {
                     top = 0;
@@ -50,26 +38,26 @@ namespace AdornerBehaviorTestApp
             }
         }
 
-        private void thumbTopLeft_DragDelta(object sender, DragDeltaEventArgs args)
+        private void ThumbTopLeft_DragDelta(object sender, DragDeltaEventArgs args)
         {
             if (sender is FrameworkElement adornerChild)
             {
-                FrameworkElement adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
+                var adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
 
-                double left = Canvas.GetLeft(adornedElement);
+                var left = Canvas.GetLeft(adornedElement);
                 if (left.Equals(double.NaN))
                 {
                     left = 0;
                 }
 
-                double top = Canvas.GetTop(adornedElement);
+                var top = Canvas.GetTop(adornedElement);
                 if (top.Equals(double.NaN))
                 {
                     top = 0;
                 }
 
-                double width = adornedElement.ActualWidth;
-                double height = adornedElement.ActualHeight;
+                var width = adornedElement.ActualWidth;
+                var height = adornedElement.ActualHeight;
 
                 if (width - args.HorizontalChange > 0)
                 {
@@ -84,20 +72,20 @@ namespace AdornerBehaviorTestApp
             }
         }
 
-        private void thumbTopRight_DragDelta(object sender, DragDeltaEventArgs args)
+        private void ThumbTopRight_DragDelta(object sender, DragDeltaEventArgs args)
         {
             if (sender is FrameworkElement adornerChild)
             {
-                FrameworkElement adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
+                var adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
 
-                double top = Canvas.GetTop(adornedElement);
+                var top = Canvas.GetTop(adornedElement);
                 if (top.Equals(double.NaN))
                 {
                     top = 0;
                 }
 
-                double width = adornedElement.ActualWidth;
-                double height = adornedElement.ActualHeight;
+                var width = adornedElement.ActualWidth;
+                var height = adornedElement.ActualHeight;
 
                 if (width + args.HorizontalChange > 0)
                 {
@@ -112,20 +100,20 @@ namespace AdornerBehaviorTestApp
             }
         }
 
-        private void thumbBottomLeft_DragDelta(object sender, DragDeltaEventArgs args)
+        private void ThumbBottomLeft_DragDelta(object sender, DragDeltaEventArgs args)
         {
             if (sender is FrameworkElement adornerChild)
             {
-                FrameworkElement adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
+                var adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
 
-                double left = Canvas.GetLeft(adornedElement);
+                var left = Canvas.GetLeft(adornedElement);
                 if (left.Equals(double.NaN))
                 {
                     left = 0;
                 }
 
-                double width = adornedElement.ActualWidth;
-                double height = adornedElement.ActualHeight;
+                var width = adornedElement.ActualWidth;
+                var height = adornedElement.ActualHeight;
 
                 if (width - args.HorizontalChange > 0)
                 {
@@ -139,14 +127,14 @@ namespace AdornerBehaviorTestApp
             }
         }
 
-        private void thumbBottomRight_DragDelta(object sender, DragDeltaEventArgs args)
+        private void ThumbBottomRight_DragDelta(object sender, DragDeltaEventArgs args)
         {
             if (sender is FrameworkElement adornerChild)
             {
-                FrameworkElement adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
+                var adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
 
-                double width = adornedElement.ActualWidth;
-                double height = adornedElement.ActualHeight;
+                var width = adornedElement.ActualWidth;
+                var height = adornedElement.ActualHeight;
 
                 if (width + args.HorizontalChange > 0)
                 {
