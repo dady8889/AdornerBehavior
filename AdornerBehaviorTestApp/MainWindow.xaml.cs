@@ -1,7 +1,7 @@
-﻿using AdornerBehavior;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using AdornerBehavior;
 
 namespace AdornerBehaviorTestApp
 {
@@ -12,22 +12,22 @@ namespace AdornerBehaviorTestApp
     {
         public MainWindow()
         {
-            InitializeComponent();
+            this.InitializeComponent();
         }
 
         private void ThumbDragAround_DragDelta(object sender, DragDeltaEventArgs args)
         {
             if (sender is FrameworkElement adornerChild)
             {
-                FrameworkElement adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
+                var adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
 
-                double left = Canvas.GetLeft(adornedElement);
+                var left = Canvas.GetLeft(adornedElement);
                 if (left.Equals(double.NaN))
                 {
                     left = 0;
                 }
 
-                double top = Canvas.GetTop(adornedElement);
+                var top = Canvas.GetTop(adornedElement);
                 if (top.Equals(double.NaN))
                 {
                     top = 0;
@@ -42,22 +42,22 @@ namespace AdornerBehaviorTestApp
         {
             if (sender is FrameworkElement adornerChild)
             {
-                FrameworkElement adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
+                var adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
 
-                double left = Canvas.GetLeft(adornedElement);
+                var left = Canvas.GetLeft(adornedElement);
                 if (left.Equals(double.NaN))
                 {
                     left = 0;
                 }
 
-                double top = Canvas.GetTop(adornedElement);
+                var top = Canvas.GetTop(adornedElement);
                 if (top.Equals(double.NaN))
                 {
                     top = 0;
                 }
 
-                double width = adornedElement.ActualWidth;
-                double height = adornedElement.ActualHeight;
+                var width = adornedElement.ActualWidth;
+                var height = adornedElement.ActualHeight;
 
                 if (width - args.HorizontalChange > 0)
                 {
@@ -76,16 +76,16 @@ namespace AdornerBehaviorTestApp
         {
             if (sender is FrameworkElement adornerChild)
             {
-                FrameworkElement adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
+                var adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
 
-                double top = Canvas.GetTop(adornedElement);
+                var top = Canvas.GetTop(adornedElement);
                 if (top.Equals(double.NaN))
                 {
                     top = 0;
                 }
 
-                double width = adornedElement.ActualWidth;
-                double height = adornedElement.ActualHeight;
+                var width = adornedElement.ActualWidth;
+                var height = adornedElement.ActualHeight;
 
                 if (width + args.HorizontalChange > 0)
                 {
@@ -104,16 +104,16 @@ namespace AdornerBehaviorTestApp
         {
             if (sender is FrameworkElement adornerChild)
             {
-                FrameworkElement adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
+                var adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
 
-                double left = Canvas.GetLeft(adornedElement);
+                var left = Canvas.GetLeft(adornedElement);
                 if (left.Equals(double.NaN))
                 {
                     left = 0;
                 }
 
-                double width = adornedElement.ActualWidth;
-                double height = adornedElement.ActualHeight;
+                var width = adornedElement.ActualWidth;
+                var height = adornedElement.ActualHeight;
 
                 if (width - args.HorizontalChange > 0)
                 {
@@ -131,10 +131,10 @@ namespace AdornerBehaviorTestApp
         {
             if (sender is FrameworkElement adornerChild)
             {
-                FrameworkElement adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
+                var adornedElement = FrameworkElementMultiChildAdorner.GetAdornedElement(adornerChild);
 
-                double width = adornedElement.ActualWidth;
-                double height = adornedElement.ActualHeight;
+                var width = adornedElement.ActualWidth;
+                var height = adornedElement.ActualHeight;
 
                 if (width + args.HorizontalChange > 0)
                 {
