@@ -1,6 +1,7 @@
 # AdornerBehavior
-Adorner Behavior by wuijong and Ashley Davis.
-This is a fixed version viable for use in modern world.
+Adorner Behavior by wuijong and Ashley Davis.  
+This is a fixed and improved version viable for use in the modern world.  
+Allows you to easily define adorners in XAML, with no code behind required.
 
 ## Changes
 * Built against .NET Framework 4.6.1 and .NET Core 3.1.
@@ -52,4 +53,5 @@ The code **was not tested** thorougly, and probably **is not** suitable for use 
 I am open to suggestions and PRs.
 
 ## Licenses
-Original work was licensed under CPOL and so is this.
+Original work was licensed under CPOL, however there isn't much left of the original code.  
+Therefore, I am giving my code to the Public Domain.
