@@ -3,14 +3,15 @@ Adorner Behavior by wuijong and Ashley Davis.
 This is a fixed version viable for use in modern world.
 
 ## Changes
-* Fixed memory leaks.
+* Built against .NET Framework 4.6.1 and .NET Core 3.1.
+* Fixed bugs and memory leaks.
 * Removed single child only variant.
 * Adorner collection does not need an encapsulating array.
-* Built against .NET Framework 4.6.1 and .NET Core 3.1.
 * The codebase was refactored and cleaned.
 * New test app.
 * The naming of functions was changed to better reflect the usage.
 * Position of adorners are implicitly set to be inside the adorning control.
+* Adorner collection implements INotifyCollectionChanged, which allows manipulation at runtime.
 
 ## Usage
 Check out the TestApp Project or the original [article](https://www.codeproject.com/Articles/123638/A-Resusable-Attached-Behavior-for-Defining-Adorner).
@@ -18,7 +19,7 @@ Check out the TestApp Project or the original [article](https://www.codeproject.
 ## Quick Example
 First, define the AdornerBehavior.Adorners collection for the adorning control.
 Then, you can either set the AdornerBehavior.IsEnabled property to True on the adorning control to show the adorners,
-or you can bind it's value to some code behind and define a more complex behavior. Both versions are shown in the Test App.
+or you can bind it's value to some code behind and define a more complex behavior. Both approaches are shown in the Test App.
 ```xaml
 <Window xmlns:ab="clr-namespace:AdornerBehavior;assembly=AdornerBehavior">
     ...
@@ -39,6 +40,11 @@ or you can bind it's value to some code behind and define a more complex behavio
     ...
 </Window>
 ```
+
+## Showcase
+<p align="center">
+  <img src="TestAppShowcase.gif">
+</p>
 
 ## Disclaimer
 The code **was not tested** thorougly, and probably **is not** suitable for use in production.
